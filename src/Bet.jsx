@@ -48,7 +48,8 @@ const Bet = ({user}) => {
                   value={betDuration} onChange={e => setBetDuration(e.target.value)}
                   isValid={betDuration && /^.*?:[0-5].$/.test(betDuration)}></Form.Control>
               </Form.Group>
-              <Button type="primary" onClick={handleSubmit}>Place bet</Button>
+              <Button disabled={todayBets.filter(bet => bet.username === user).length}
+                type="primary" onClick={handleSubmit}>Place bet</Button>
             </Form>
             {todayBets.filter(bet => bet.username === user).length && <div>You've already bet today!</div>}
             <hr />
