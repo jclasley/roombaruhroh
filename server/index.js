@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const hasher = require('../controller/hash');
-const {Person, Bet} = require('../db/models');
+const {Person, Bet, Winner} = require('../db/models');
 
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../public')));
@@ -41,6 +41,16 @@ app.get('/bets/today', async (req, res) => {
     res.status(500).send(err);
   }
 })
+
+app.get('/winner', async (req, res) => {
+  try {
+    const winner = await Winner.find().sort({createdAt: -1}).limit(1);
+    res.status(200).send(winner[0]);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+})
+
 app.get('/bets/:user', async (req, res) => {
   try {
     const bets = await Bet.find({username: req.params.user});

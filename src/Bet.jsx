@@ -9,14 +9,21 @@ const Bet = ({user}) => {
   const [betSuccess, setBetSuccess] = useState(null);
   const [betDuration, setBetDuration] = useState('');
   const betAvail = useRoombaDay();
+  const [winner, setWinner] = useState({});
 
   const getBets = () => {
     axios.get('/bets/today')
       .then(({data}) => setTodayBets(data));
   }
 
+  const getWinner = () => {
+    axios.get('/winner')
+      .then(({data}) => setWinner(data));
+  }
+
   useEffect(()=> {
     getBets();
+    getWinner();
   }, []);
   useEffect(() => {
     getBets();
@@ -65,6 +72,9 @@ const Bet = ({user}) => {
                 </ul>
               </div>
             ))}
+          </div>
+          <div className="winner">
+            Nobody won today! The roomba errored out at 8 minutes, and all bets were above 8. Better luck Friday!
           </div>
         </div>
     </>

@@ -15,10 +15,19 @@ const betSchema = new mongoose.Schema({
   timestamps: Date
 })
 
+const winners = new mongoose.Schema({
+  username: String,
+  duration: String,
+}, {
+  timestamps: Date
+})
+
 const Person = mongoose.model('Person', personSchema);
 const Bet = mongoose.model('Bet', betSchema);
+const Winner = mongoose.model('Winner', winners);
 
 module.exports = {
   Person,
-  Bet
+  Bet,
+  Winner
 }
