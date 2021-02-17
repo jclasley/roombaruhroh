@@ -10,10 +10,6 @@ const Bet = ({user}) => {
   const [betDuration, setBetDuration] = useState('');
   const betAvail = useRoombaDay();
 
-  // useEffect(() => {
-  //   userBets.filter(bet => )
-  // }, [userBets])
-
   const getBets = () => {
     axios.get('/bets/today')
       .then(({data}) => setTodayBets(data));
