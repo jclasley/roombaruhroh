@@ -33,9 +33,9 @@ app.post('/login', async (req, res) => {
 })
 app.get('/bets/today', async (req, res) => {
   try {
-    const yesterday = new Date(Date.now());
-    yesterday.setDate(yesterday.getDate() - 2);
-    const bets = await Bet.find({ createdAt: {$gte: yesterday}})
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const bets = await Bet.find({ createdAt: {$gte: yesterday, $lte: new Date()}})
     res.status(200).send(bets);
   } catch (err) {
     res.status(500).send(err);
